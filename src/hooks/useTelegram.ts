@@ -39,8 +39,8 @@ export function useTelegram() {
 
   try {
     const lp = retrieveLaunchParams()
-    initData = lp.initDataRaw ?? ''
-    initDataRaw = lp.initDataRaw ?? ''
+    initData = (lp.initDataRaw as string) ?? ''
+    initDataRaw = (lp.initDataRaw as string) ?? ''
     user = lp.initData
       ? {
           id: 0,

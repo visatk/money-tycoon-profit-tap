@@ -22,47 +22,47 @@ export interface TelegramUser {
 }
 
 export interface BusinessRow {
-  player_id: string
-  business_id: string
+  playerId: string
+  businessId: string
   level: number
-  tap_income: number
-  auto_income: number
-  tap_count: number
-  upgrades_purchased: string // JSON array
-  managers_hired: number
-  last_collected: number | null
-  total_earned: number
+  tapIncome: number
+  autoIncome: number
+  tapCount: number
+  upgradesPurchased: string // JSON array
+  managersHired: number
+  lastCollected: number | null
+  totalEarned: number
 }
 
 export interface PlayerRow {
   id: string
   username: string | null
-  first_name: string
-  net_worth: number
+  firstName: string
+  netWorth: number
   level: number
   xp: number
-  last_seen: number
-  created_at: number
+  lastSeen: number
+  createdAt: number
 }
 
 export interface InvestmentRow {
-  player_id: string
-  asset_id: string
+  playerId: string
+  assetId: string
   amount: number
-  purchase_price: number
-  purchased_at: number
+  purchasePrice: number
+  purchasedAt: number
 }
 
 export interface LuxuryRow {
-  player_id: string
-  item_id: string
-  purchased_at: number
+  playerId: string
+  itemId: string
+  purchasedAt: number
 }
 
 export interface QuestProgressRow {
-  player_id: string
-  quest_date: string
-  quest_id: string
+  playerId: string
+  questDate: string
+  questId: string
   progress: number
   completed: number
   claimed: number
@@ -70,11 +70,11 @@ export interface QuestProgressRow {
 
 export interface MarketEventRow {
   id: string
-  event_type: string
-  business_id: string | null
+  eventType: string
+  businessId: string | null
   multiplier: number
-  started_at: number
-  ends_at: number
+  startedAt: number
+  endsAt: number
   description: string
   title: string
   emoji: string

@@ -11,7 +11,7 @@ import type { BusinessId } from '../types'
 import { eq, and } from 'drizzle-orm'
 
 
-const BUSINESS_IDS: BusinessId[] = ['store', 'taxi', 'logistics', 'construction', 'airport', 'factory']
+
 
 const route = new Hono<{ Bindings: Env }>()
 

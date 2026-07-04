@@ -5,10 +5,10 @@ import { BUSINESS_MAP_WORKER, LUXURY_MAP_WORKER, MAX_OFFLINE_SECONDS } from './g
  * Calculate tap income for a business, applying upgrade multipliers.
  */
 export function calcTapIncome(biz: BusinessRow, eventMultiplier = 1): number {
-  const def = BUSINESS_MAP_WORKER[biz.business_id as BusinessId]
+  const def = BUSINESS_MAP_WORKER[biz.businessId as BusinessId]
   if (!def) return 1
 
-  const upgrades: string[] = JSON.parse(biz.upgrades_purchased || '[]')
+  const upgrades: string[] = JSON.parse(biz.upgradesPurchased || '[]')
   let tapMult = 1
 
   for (const upgradeId of upgrades) {
@@ -23,12 +23,12 @@ export function calcTapIncome(biz: BusinessRow, eventMultiplier = 1): number {
  * Calculate auto income per second for a business.
  */
 export function calcAutoIncome(biz: BusinessRow, eventMultiplier = 1): number {
-  if (biz.managers_hired === 0) return 0
+  if (biz.managersHired === 0) return 0
 
-  const def = BUSINESS_MAP_WORKER[biz.business_id as BusinessId]
+  const def = BUSINESS_MAP_WORKER[biz.businessId as BusinessId]
   if (!def) return 0
 
-  const upgrades: string[] = JSON.parse(biz.upgrades_purchased || '[]')
+  const upgrades: string[] = JSON.parse(biz.upgradesPurchased || '[]')
   let autoMult = 1
 
   for (const upgradeId of upgrades) {
@@ -41,8 +41,7 @@ export function calcAutoIncome(biz: BusinessRow, eventMultiplier = 1): number {
   for (const manager of def.managers) {
     totalManagerRate += manager.incomePerSecond
   }
-  // managers_hired is the total count, each manager has a tier
-  const managersToUse = Math.min(biz.managers_hired, def.managers.length)
+  const managersToUse = Math.min(biz.managersHired, def.managers.length)
   let rateFromManagers = 0
   for (let i = 0; i < managersToUse; i++) {
     rateFromManagers += def.managers[i].incomePerSecond
@@ -68,12 +67,12 @@ export function calcOfflineEarnings(
   let totalEarnings = 0
 
   for (const biz of businesses) {
-    if (biz.managers_hired === 0) continue
+    if (biz.managersHired === 0) continue
     const autoIncome = calcAutoIncome(biz)
     const earned = autoIncome * effectiveTime
 
     if (earned > 0) {
-      breakdown.push({ businessId: biz.business_id as BusinessId, amount: earned })
+      breakdown.push({ businessId: biz.businessId as BusinessId, amount: earned })
       totalEarnings += earned
     }
   }

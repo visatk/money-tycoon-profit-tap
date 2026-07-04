@@ -15,9 +15,7 @@ export function InvestmentsScreen() {
 
   useEffect(() => {
     const fetch = async () => {
-      setLoading(true)
       const [pricesRes, portfolioRes] = await Promise.all([investApi.assets(), investApi.portfolio()])
-      setLoading(false)
       if (pricesRes.ok && pricesRes.data) {
         const map: Record<string, { price: number; change24h: number }> = {}
         for (const p of pricesRes.data) map[p.assetId] = p

@@ -2,7 +2,7 @@ import { Hono } from 'hono'
 import { zValidator } from '@hono/zod-validator'
 import { z } from 'zod'
 import { getDb } from '../db'
-import { investments, players, assetPrices } from '../db/schema'
+import { investments, players } from '../db/schema'
 import { extractUserId } from '../lib/auth'
 import { simulateAssetPrice } from '../lib/gameEngine'
 import { INVESTMENT_VOLATILITY } from '../lib/gameConstants'
@@ -19,7 +19,6 @@ route.use('*', async (c, next) => {
 
 // ─── GET /api/invest/assets ───────────────────────────────────────────────────
 route.get('/assets', async (c) => {
-  const db = getDb(c.env.DB)
   const now = Date.now()
   // Prices are seeded per minute for determinism
   const minuteSeed = Math.floor(now / 60_000)

@@ -11,7 +11,6 @@
 		"db:generate": "drizzle-kit generate",
 		"db:migrate:remote": "wrangler d1 migrations apply moneytycoon --remote",
 		"deploy": "npm run db:generate && npm run db:migrate:remote && wrangler types && npm run build && wrangler deploy",
-		"deploy": "wrangler types && npm run build && wrangler deploy",
 		"cf-typegen": "wrangler types"
 	},
 	"dependencies": {

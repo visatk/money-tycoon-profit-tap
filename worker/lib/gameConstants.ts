@@ -13,7 +13,7 @@ interface WorkerBusinessDef {
   emoji: string
   baseIncomePerTap: number
   baseAutoPerManager: number
-  upgrades: { id: string; tapMultiplier?: number; autoMultiplier?: number }[]
+  upgrades: { id: string; tapMultiplier?: number; autoMultiplier?: number; cost: number }[]
   managers: { id: string; costPerHire: number; incomePerSecond: number }[]
 }
 
@@ -28,11 +28,11 @@ const BUSINESSES_WORKER: WorkerBusinessDef[] = [
     id: 'store', name: 'Your Own Store', emoji: '🏪',
     baseIncomePerTap: 1, baseAutoPerManager: 0.5,
     upgrades: [
-      { id: 'product_variety', tapMultiplier: 1.5 },
-      { id: 'loyalty_cards', tapMultiplier: 2.0 },
-      { id: 'self_checkout', autoMultiplier: 2.0 },
-      { id: 'brand_advertising', tapMultiplier: 3.0 },
-      { id: 'premium_brand', tapMultiplier: 4.0, autoMultiplier: 4.0 },
+      { id: 'product_variety', tapMultiplier: 1.5, cost: 100 },
+      { id: 'loyalty_cards', tapMultiplier: 2.0, cost: 500 },
+      { id: 'self_checkout', autoMultiplier: 2.0, cost: 2000 },
+      { id: 'brand_advertising', tapMultiplier: 3.0, cost: 10000 },
+      { id: 'premium_brand', tapMultiplier: 4.0, autoMultiplier: 4.0, cost: 100000 },
     ],
     managers: [
       { id: 'cashier', costPerHire: 50, incomePerSecond: 1 },
@@ -44,11 +44,11 @@ const BUSINESSES_WORKER: WorkerBusinessDef[] = [
     id: 'taxi', name: 'Taxi Service', emoji: '🚕',
     baseIncomePerTap: 5, baseAutoPerManager: 2,
     upgrades: [
-      { id: 'gps_system', tapMultiplier: 1.5 },
-      { id: 'luxury_fleet', tapMultiplier: 2.0 },
-      { id: 'driver_training', autoMultiplier: 2.0 },
-      { id: 'surge_pricing', tapMultiplier: 3.0 },
-      { id: 'autonomous_vehicles', autoMultiplier: 5.0 },
+      { id: 'gps_system', tapMultiplier: 1.5, cost: 500 },
+      { id: 'luxury_fleet', tapMultiplier: 2.0, cost: 2500 },
+      { id: 'driver_training', autoMultiplier: 2.0, cost: 10000 },
+      { id: 'surge_pricing', tapMultiplier: 3.0, cost: 50000 },
+      { id: 'autonomous_vehicles', autoMultiplier: 5.0, cost: 500000 },
     ],
     managers: [
       { id: 'driver', costPerHire: 250, incomePerSecond: 4 },
@@ -60,11 +60,11 @@ const BUSINESSES_WORKER: WorkerBusinessDef[] = [
     id: 'logistics', name: 'Logistics & Delivery', emoji: '📦',
     baseIncomePerTap: 20, baseAutoPerManager: 8,
     upgrades: [
-      { id: 'cargo_capacity', tapMultiplier: 1.5 },
-      { id: 'express_lanes', tapMultiplier: 2.0 },
-      { id: 'hub_warehouse', autoMultiplier: 2.5 },
-      { id: 'drone_delivery', tapMultiplier: 4.0 },
-      { id: 'global_network', tapMultiplier: 6.0, autoMultiplier: 6.0 },
+      { id: 'cargo_capacity', tapMultiplier: 1.5, cost: 2000 },
+      { id: 'express_lanes', tapMultiplier: 2.0, cost: 10000 },
+      { id: 'hub_warehouse', autoMultiplier: 2.5, cost: 40000 },
+      { id: 'drone_delivery', tapMultiplier: 4.0, cost: 200000 },
+      { id: 'global_network', tapMultiplier: 6.0, autoMultiplier: 6.0, cost: 2000000 },
     ],
     managers: [
       { id: 'courier', costPerHire: 1000, incomePerSecond: 16 },
@@ -76,11 +76,11 @@ const BUSINESSES_WORKER: WorkerBusinessDef[] = [
     id: 'construction', name: 'Construction Company', emoji: '🏗️',
     baseIncomePerTap: 100, baseAutoPerManager: 40,
     upgrades: [
-      { id: 'safety_equipment', tapMultiplier: 1.5 },
-      { id: 'modern_machinery', tapMultiplier: 2.5 },
-      { id: 'permit_expediting', autoMultiplier: 2.0 },
-      { id: 'skyscraper_tech', tapMultiplier: 4.0 },
-      { id: 'smart_construction', tapMultiplier: 6.0, autoMultiplier: 6.0 },
+      { id: 'safety_equipment', tapMultiplier: 1.5, cost: 10000 },
+      { id: 'modern_machinery', tapMultiplier: 2.5, cost: 50000 },
+      { id: 'permit_expediting', autoMultiplier: 2.0, cost: 200000 },
+      { id: 'skyscraper_tech', tapMultiplier: 4.0, cost: 1000000 },
+      { id: 'smart_construction', tapMultiplier: 6.0, autoMultiplier: 6.0, cost: 10000000 },
     ],
     managers: [
       { id: 'foreman', costPerHire: 5000, incomePerSecond: 80 },
@@ -92,11 +92,11 @@ const BUSINESSES_WORKER: WorkerBusinessDef[] = [
     id: 'airport', name: 'International Airport', emoji: '✈️',
     baseIncomePerTap: 500, baseAutoPerManager: 200,
     upgrades: [
-      { id: 'terminal_expansion', tapMultiplier: 1.5 },
-      { id: 'new_routes', tapMultiplier: 2.5 },
-      { id: 'vip_lounge', autoMultiplier: 3.0 },
-      { id: 'duty_free_shops', tapMultiplier: 4.0 },
-      { id: 'hub_airport', tapMultiplier: 7.0, autoMultiplier: 7.0 },
+      { id: 'terminal_expansion', tapMultiplier: 1.5, cost: 50000 },
+      { id: 'new_routes', tapMultiplier: 2.5, cost: 250000 },
+      { id: 'vip_lounge', autoMultiplier: 3.0, cost: 1000000 },
+      { id: 'duty_free_shops', tapMultiplier: 4.0, cost: 5000000 },
+      { id: 'hub_airport', tapMultiplier: 7.0, autoMultiplier: 7.0, cost: 50000000 },
     ],
     managers: [
       { id: 'ground_crew', costPerHire: 25000, incomePerSecond: 400 },
@@ -108,11 +108,11 @@ const BUSINESSES_WORKER: WorkerBusinessDef[] = [
     id: 'factory', name: 'Industrial Factory', emoji: '🏭',
     baseIncomePerTap: 2500, baseAutoPerManager: 1000,
     upgrades: [
-      { id: 'assembly_line', tapMultiplier: 1.5 },
-      { id: 'quality_control', tapMultiplier: 2.5 },
-      { id: 'resource_recycling', autoMultiplier: 3.0 },
-      { id: 'robot_assembly', tapMultiplier: 5.0 },
-      { id: 'megafactory', tapMultiplier: 8.0, autoMultiplier: 8.0 },
+      { id: 'assembly_line', tapMultiplier: 1.5, cost: 250000 },
+      { id: 'quality_control', tapMultiplier: 2.5, cost: 1250000 },
+      { id: 'resource_recycling', autoMultiplier: 3.0, cost: 5000000 },
+      { id: 'robot_assembly', tapMultiplier: 5.0, cost: 25000000 },
+      { id: 'megafactory', tapMultiplier: 8.0, autoMultiplier: 8.0, cost: 250000000 },
     ],
     managers: [
       { id: 'technician', costPerHire: 125000, incomePerSecond: 2000 },

@@ -84,7 +84,6 @@ export function TapButton({
       {/* Button */}
       <motion.button
         ref={buttonRef}
-        style={{ scale }}
         onClick={handleTap}
         onTouchStart={handleTap}
         disabled={disabled}
@@ -95,11 +94,11 @@ export function TapButton({
           disabled && 'opacity-50 cursor-not-allowed',
         )}
         style={{
-          scale,
+          scale: scale as any,
           background: `radial-gradient(circle at 35% 35%, ${color}33, ${color}11)`,
           borderColor: color,
           boxShadow: `0 0 30px ${glowColor}, inset 0 1px 0 ${color}44`,
-        } as React.CSSProperties}
+        }}
       >
         <span className="drop-shadow-lg">{emoji}</span>
       </motion.button>
