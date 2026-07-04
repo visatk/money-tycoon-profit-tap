@@ -8,7 +8,7 @@
 		"build": "tsc -b && vite build",
 		"lint": "oxlint",
 		"preview": "npm run build && vite preview",
-		"deploy": "wrangler types && npm run build && wrangler deploy",
+		"deploy": "npx drizzle-kit generate && wrangler d1 migrations moneytycoon --remote && wrangler types && npm run build && wrangler deploy",
 		"cf-typegen": "wrangler types"
 	},
 	"dependencies": {
