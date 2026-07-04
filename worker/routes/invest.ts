@@ -46,7 +46,7 @@ route.get('/portfolio', async (c) => {
 
   const positions = await db.select().from(investments).where(eq(investments.playerId, userId)).all()
 
-  const portfolio = positions.map((pos) => {
+  const portfolio = positions.map((pos: { assetId: string, amount: number, purchasePrice: number }) => {
     const { basePrice, volatility } = INVESTMENT_VOLATILITY[pos.assetId] ?? { basePrice: 1, volatility: 0 }
     const currentPrice = simulateAssetPrice(basePrice, volatility, minuteSeed + pos.assetId.charCodeAt(0))
     const currentValue = pos.amount * currentPrice
@@ -65,8 +65,8 @@ route.get('/portfolio', async (c) => {
     }
   })
 
-  const totalValue = portfolio.reduce((sum, p) => sum + p.currentValue, 0)
-  const totalPnl = portfolio.reduce((sum, p) => sum + p.pnl, 0)
+  const totalValue = portfolio.reduce((sum: number, p: { currentValue: number }) => sum + p.currentValue, 0)
+  const totalPnl = portfolio.reduce((sum: number, p: { pnl: number }) => sum + p.pnl, 0)
 
   return c.json({ ok: true, data: { positions: portfolio, totalValue, totalPnl } })
 })

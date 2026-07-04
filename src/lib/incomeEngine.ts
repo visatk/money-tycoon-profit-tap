@@ -1,6 +1,5 @@
 import type { BusinessState, ActiveMarketEvent } from '@/types'
-import { BUSINESS_MAP } from '@/lib/gameConstants'
-import { INCOME_TICK_MS } from '@/lib/gameConstants'
+import { BUSINESS_MAP, LUXURY_MAP, INCOME_TICK_MS } from '@/lib/gameConstants'
 
 /**
  * Calculate tap income on the client, applying event multipliers.
@@ -89,7 +88,6 @@ export function getClientEventMultiplier(
  * Get total net worth from balance + investments + luxury.
  */
 export function calcClientNetWorth(balance: number, investmentValue: number, ownedLuxury: string[]): number {
-  const { LUXURY_MAP } = require('@/lib/gameConstants')
   const prestigeScore = ownedLuxury.reduce((sum, id) => {
     return sum + (LUXURY_MAP[id]?.prestigeScore ?? 0)
   }, 0)

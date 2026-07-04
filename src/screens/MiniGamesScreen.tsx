@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { MINI_GAMES, WHEEL_REWARDS } from '@/lib/gameConstants'
 import { formatCurrency } from '@/lib/utils'

@@ -43,7 +43,7 @@ export default {
    * Cron trigger: fires every minute.
    * Generates a random market event and stores it in D1.
    */
-  async scheduled(_event: ScheduledEvent, env: Env, _ctx: ExecutionContext): Promise<void> {
+  async scheduled(_event: any, env: Env, _ctx: ExecutionContext): Promise<void> {
     try {
       await generateAndStoreEvent(env.DB)
     } catch (err) {

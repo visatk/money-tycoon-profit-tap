@@ -10,7 +10,7 @@ import {
 import type { GameState, BusinessId, ActiveMarketEvent, BusinessState } from '@/types'
 import { gameApi, luxuryApi } from '@/lib/api'
 import { applyIncomeTick } from '@/lib/incomeEngine'
-import { AUTO_SAVE_INTERVAL_MS, INCOME_TICK_MS } from '@/lib/gameConstants'
+import { INCOME_TICK_MS } from '@/lib/gameConstants'
 
 // ─── State ────────────────────────────────────────────────────────────────────
 interface ExtendedGameState extends GameState {
@@ -142,7 +142,6 @@ export function useGameState(): GameContextValue {
 export function useGameStateProvider(): GameContextValue {
   const [state, dispatch] = useReducer(reducer, initialState)
   const tickIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
-  const saveIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const stateRef = useRef(state)
   stateRef.current = state
 
@@ -195,9 +194,9 @@ export function useGameStateProvider(): GameContextValue {
     }
   }, [])
 
-  const tap = useCallback((businessId: BusinessId) => {
+  const tap = useCallback((businessId: BusinessId): Promise<void> => {
     const biz = stateRef.current.businesses.find((b) => b.businessId === businessId)
-    if (!biz) return
+    if (!biz) return Promise.resolve()
     
     // Optimistic update
     const income = biz.tapIncome

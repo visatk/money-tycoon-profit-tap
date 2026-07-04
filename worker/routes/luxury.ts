@@ -21,7 +21,7 @@ route.get('/owned', async (c) => {
   const userId = c.get('userId' as never) as string
   const db = getDb(c.env.DB)
   const rows = await db.select().from(luxuryItems).where(eq(luxuryItems.playerId, userId)).all()
-  return c.json({ ok: true, data: rows.map((r) => r.itemId) })
+  return c.json({ ok: true, data: rows.map((r: { itemId: string }) => r.itemId) })
 })
 
 // ─── POST /api/luxury/buy ─────────────────────────────────────────────────────

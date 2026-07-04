@@ -7,7 +7,6 @@ import type {
   BusinessId,
   LeaderboardEntry,
   AssetPrice,
-  QuestProgress,
 } from '@/types'
 
 const BASE_URL = '/api'

@@ -12,7 +12,7 @@ export function calcTapIncome(biz: BusinessRow, eventMultiplier = 1): number {
   let tapMult = 1
 
   for (const upgradeId of upgrades) {
-    const upgrade = def.upgrades.find((u) => u.id === upgradeId)
+    const upgrade = def.upgrades.find((u: { id: string }) => u.id === upgradeId)
     if (upgrade?.tapMultiplier) tapMult *= upgrade.tapMultiplier
   }
 
@@ -32,7 +32,7 @@ export function calcAutoIncome(biz: BusinessRow, eventMultiplier = 1): number {
   let autoMult = 1
 
   for (const upgradeId of upgrades) {
-    const upgrade = def.upgrades.find((u) => u.id === upgradeId)
+    const upgrade = def.upgrades.find((u: { id: string }) => u.id === upgradeId)
     if (upgrade?.autoMultiplier) autoMult *= upgrade.autoMultiplier
   }
 

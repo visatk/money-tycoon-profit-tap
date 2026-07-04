@@ -59,7 +59,7 @@ export async function getActiveEvents(db: D1Database): Promise<ActiveEvent[]> {
     .where(gt(marketEvents.endsAt, now))
     .all()
 
-  return rows.map((row) => ({
+  return rows.map((row: any) => ({
     id: row.id,
     type: row.eventType,
     title: row.title,

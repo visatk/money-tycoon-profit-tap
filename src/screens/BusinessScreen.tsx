@@ -6,7 +6,7 @@ import { useTelegram } from '@/hooks/useTelegram'
 import { TapButton } from '@/components/TapButton'
 import { UpgradeCard } from '@/components/UpgradeCard'
 import { NetWorthCounter } from '@/components/NetWorthCounter'
-import { BUSINESS_MAP, BUSINESSES } from '@/lib/gameConstants'
+import { BUSINESS_MAP } from '@/lib/gameConstants'
 import { formatCurrency, formatRate } from '@/lib/utils'
 
 interface BusinessScreenProps {

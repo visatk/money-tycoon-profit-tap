@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { getDb } from '../db'
 import { players, businesses } from '../db/schema'
 import { validateTelegramInitData, parseTelegramUser } from '../lib/auth'
-import { BUSINESS_MAP_WORKER, MAX_TAPS_PER_SECOND } from '../lib/gameConstants'
+import { BUSINESS_MAP_WORKER } from '../lib/gameConstants'
 import { eq } from 'drizzle-orm'
 
 const BUSINESS_IDS = ['store', 'taxi', 'logistics', 'construction', 'airport', 'factory'] as const
@@ -15,7 +15,7 @@ const route = new Hono<{ Bindings: Env }>()
 
 route.post('/validate', zValidator('json', authSchema), async (c) => {
   const { initData } = c.req.valid('json')
-  const botToken = c.env.BOT_TOKEN ?? ''
+  const botToken = (c.env as any).BOT_TOKEN ?? ''
 
   const isValid = validateTelegramInitData(initData, botToken)
   if (!isValid && botToken !== '') {

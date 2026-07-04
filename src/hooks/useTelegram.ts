@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react'
+import { useCallback } from 'react'
 import {
   retrieveLaunchParams,
   hapticFeedback,
@@ -39,9 +39,9 @@ export function useTelegram() {
 
   try {
     const lp = retrieveLaunchParams()
-    initData = lp.tgWebAppData ?? ''
-    initDataRaw = lp.tgWebAppData ?? ''
-    user = lp.tgWebAppData
+    initData = lp.initDataRaw ?? ''
+    initDataRaw = lp.initDataRaw ?? ''
+    user = lp.initData
       ? {
           id: 0,
           firstName: 'Tycoon',

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { motion } from 'motion/react'
 import { questsApi } from '@/lib/api'
 import { QUEST_POOL } from '@/lib/gameConstants'
-import { formatCurrency } from '@/lib/utils'
 import { useGameState } from '@/hooks/useGameState'
 
 interface QuestItem {

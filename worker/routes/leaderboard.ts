@@ -29,7 +29,7 @@ route.get('/global', async (c) => {
     .limit(100)
     .all()
 
-  const ranked = top100.map((p, i) => ({ rank: i + 1, ...p }))
+  const ranked = top100.map((p: any, i: number) => ({ rank: i + 1, ...p }))
 
   // Cache result
   await c.env.GAME_KV.put(cacheKey, JSON.stringify(ranked), {

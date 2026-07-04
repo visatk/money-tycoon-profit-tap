@@ -2,7 +2,7 @@ import { Hono } from 'hono'
 import { zValidator } from '@hono/zod-validator'
 import { z } from 'zod'
 import { getDb } from '../db'
-import { players, businesses } from '../db/schema'
+import { players, businesses, luxuryItems } from '../db/schema'
 import { extractUserId } from '../lib/auth'
 import { calcTapIncome, calcAutoIncome, calcOfflineEarnings, calcNetWorth, xpForNextLevel } from '../lib/gameEngine'
 import { getActiveEvents, getEventMultiplier } from '../lib/marketEvents'
@@ -37,7 +37,7 @@ route.get('/state', async (c) => {
   if (!player) return c.json({ error: 'Player not found' }, 404)
 
   const activeEvents = await getActiveEvents(c.env.DB)
-  const luxuryOwnedIds = luxuryRows.map((l) => l.itemId)
+  const ownedLuxury = luxuryRows.map((l: { itemId: string }) => l.itemId)
 
   const bizStates = bizRows.map((biz) => ({
     businessId: biz.businessId,
@@ -70,7 +70,7 @@ route.get('/state', async (c) => {
         createdAt: player.createdAt,
       },
       businesses: bizStates,
-      luxuryOwned: luxuryOwnedIds,
+      luxuryOwned: ownedLuxury,
       activeEvents,
     },
   })
@@ -150,9 +150,6 @@ route.post('/upgrade', zValidator('json', upgradeSchema), async (c) => {
   const def = BUSINESS_MAP_WORKER[businessId]
   if (!def) return c.json({ error: 'Invalid business' }, 400)
 
-  const upgradeDef = def.upgrades.find((u) => u.id === upgradeId)
-  if (!upgradeDef) return c.json({ error: 'Invalid upgrade' }, 400)
-
   const [player, biz] = await Promise.all([
     db.select().from(players).where(eq(players.id, userId)).get(),
     db.select().from(businesses)
@@ -163,7 +160,11 @@ route.post('/upgrade', zValidator('json', upgradeSchema), async (c) => {
   if (!player || !biz) return c.json({ error: 'Not found' }, 404)
 
   const owned: string[] = JSON.parse(biz.upgradesPurchased)
-  if (owned.includes(upgradeId)) return c.json({ error: 'Already purchased' }, 400)
+  const alreadyOwned = owned.find((u: string) => u === upgradeId)
+  if (alreadyOwned) return c.json({ error: 'Already purchased' }, 400)
+
+  const upgradeDef = def.upgrades.find((u) => u.id === upgradeId)
+  if (!upgradeDef) return c.json({ error: 'Invalid upgrade' }, 400)
 
   // Scale cost by level
   const cost = upgradeDef.cost * Math.pow(1.1, biz.level - 1)
@@ -214,6 +215,8 @@ route.post('/hire', zValidator('json', hireSchema), async (c) => {
   ])
 
   if (!player || !biz) return c.json({ error: 'Not found' }, 404)
+
+  if (biz.managersHired >= def.managers.length) return c.json({ error: 'All managers hired' }, 400)
 
   const cost = managerDef.costPerHire * Math.pow(1.5, biz.managersHired)
   if (player.balance < cost) return c.json({ error: 'Insufficient balance' }, 400)

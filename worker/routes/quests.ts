@@ -53,8 +53,8 @@ route.get('/today', async (c) => {
     .where(and(eq(questProgress.playerId, userId), eq(questProgress.questDate, today)))
     .all()
 
-  const result = questIds.map((questId) => {
-    const row = rows.find((r) => r.questId === questId)
+  const result = questIds.map((questId: string) => {
+    const row = rows.find((r: { questId: string }) => r.questId === questId)
     return {
       questId,
       target: QUEST_TARGETS[questId] ?? 1,

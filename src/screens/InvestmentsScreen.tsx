@@ -10,7 +10,6 @@ export function InvestmentsScreen() {
   const { state, dispatch } = useGameState()
   const [prices, setPrices] = useState<Record<string, { price: number; change24h: number }>>({})
   const [portfolio, setPortfolio] = useState<{ totalValue: number; totalPnl: number; positions: Array<{ assetId: string; amount: number; currentPrice: number; currentValue: number; pnl: number; pnlPct: number }> }>({ totalValue: 0, totalPnl: 0, positions: [] })
-  const [loading, setLoading] = useState(false)
   const [buyModal, setBuyModal] = useState<string | null>(null)
   const [buyAmount, setBuyAmount] = useState('')
 

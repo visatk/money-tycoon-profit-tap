@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react'
-import { motion, useSpring, useTransform } from 'motion/react'
+import { motion, useSpring } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { FloatingText } from './FloatingText'
 
@@ -95,6 +95,7 @@ export function TapButton({
           disabled && 'opacity-50 cursor-not-allowed',
         )}
         style={{
+          scale,
           background: `radial-gradient(circle at 35% 35%, ${color}33, ${color}11)`,
           borderColor: color,
           boxShadow: `0 0 30px ${glowColor}, inset 0 1px 0 ${color}44`,
