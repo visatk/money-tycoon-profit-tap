@@ -10,7 +10,11 @@
 		"preview": "npm run build && vite preview",
 		"db:generate": "drizzle-kit generate",
 		"db:migrate:remote": "wrangler d1 migrations apply moneytycoon --remote",
+<<<<<<< HEAD
 		"deploy": "npm run db:generate && npm run db:migrate:remote && wrangler types && npm run build && wrangler deploy",
+=======
+		"deploy": "wrangler types && npm run build && wrangler deploy",
+>>>>>>> e9e524e557dfa3bf388254d3a40b7ea8aa0bd108
 		"cf-typegen": "wrangler types"
 	},
 	"dependencies": {
