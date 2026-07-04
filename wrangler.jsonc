@@ -17,7 +17,8 @@
 			"binding": "DB",
 			"database_name": "moneytycoon",
 			"database_id": "91898819-6e5b-4668-8c69-117d73a0e34d",
-            "migrations_dir": "migrations"
+			"migrations_dir": "migrations",
+			"migrations_pattern": "migrations/*/migration.sql"
 		}
 	],
 	"kv_namespaces": [
